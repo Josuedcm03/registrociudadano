@@ -1,3 +1,4 @@
+
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center justify-between">
@@ -14,6 +15,14 @@
     </x-slot>
 
     <div class="container mx-auto p-6">
+        <!-- Botón de enviar reporte -->
+        <a
+            href="{{ route('citizens.sendReport') }}"
+            class="mb-4 inline-block px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600"
+        >
+            Enviar reporte por correo
+        </a>
+
         <!-- Buscador -->
         <form method="GET" action="{{ route('citizens.index') }}" class="mb-4">
             <input
@@ -51,50 +60,49 @@
                             </td>
                             <td class="px-6 py-4 text-sm">{{ $citizen->name }}</td>
                             <td class="px-6 py-4 text-sm">{{ $citizen->city->name }}</td>
-                            
-<td class="px-6 py-4 text-sm text-right space-x-2" x-data="{ confirmDelete: false }">
-    <a
-        href="{{ route('citizens.edit', $citizen) }}"
-        class="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
-    >
-        Editar
-    </a>
-    <template x-if="!confirmDelete">
-        <button
-            type="button"
-            @click="confirmDelete = true"
-            class="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-        >
-            Eliminar
-        </button>
-    </template>
-    <template x-if="confirmDelete">
-        <div class="inline-block bg-red-100 text-red-800 px-3 py-2 rounded shadow">
-            <span>¿Seguro que deseas eliminar este ciudadano?</span>
-            <form
-                action="{{ route('citizens.destroy', $citizen) }}"
-                method="POST"
-                class="inline"
-            >
-                @csrf
-                @method('DELETE')
-                <button
-                    type="submit"
-                    class="ml-2 px-2 py-1 bg-red-600 text-white rounded hover:bg-red-700"
-                >
-                    Sí
-                </button>
-                <button
-                    type="button"
-                    @click="confirmDelete = false"
-                    class="ml-1 px-2 py-1 bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
-                >
-                    No
-                </button>
-            </form>
-        </div>
-    </template>
-</td>
+                            <td class="px-6 py-4 text-sm text-right space-x-2" x-data="{ confirmDelete: false }">
+                                <a
+                                    href="{{ route('citizens.edit', $citizen) }}"
+                                    class="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                                >
+                                    Editar
+                                </a>
+                                <template x-if="!confirmDelete">
+                                    <button
+                                        type="button"
+                                        @click="confirmDelete = true"
+                                        class="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                                    >
+                                        Eliminar
+                                    </button>
+                                </template>
+                                <template x-if="confirmDelete">
+                                    <div class="inline-block bg-red-100 text-red-800 px-3 py-2 rounded shadow">
+                                        <span>¿Seguro que deseas eliminar este ciudadano?</span>
+                                        <form
+                                            action="{{ route('citizens.destroy', $citizen) }}"
+                                            method="POST"
+                                            class="inline"
+                                        >
+                                            @csrf
+                                            @method('DELETE')
+                                            <button
+                                                type="submit"
+                                                class="ml-2 px-2 py-1 bg-red-600 text-white rounded hover:bg-red-700"
+                                            >
+                                                Sí
+                                            </button>
+                                            <button
+                                                type="button"
+                                                @click="confirmDelete = false"
+                                                class="ml-1 px-2 py-1 bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
+                                            >
+                                                No
+                                            </button>
+                                        </form>
+                                    </div>
+                                </template>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
