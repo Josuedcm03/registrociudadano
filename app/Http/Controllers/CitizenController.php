@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\City;
 use App\Models\Citizen;
 use Illuminate\Support\Facades\DB;
+use App\Mail\CitizensReportMail;
+use Illuminate\Support\Facades\Mail;
 
 class CitizenController extends Controller
 {
@@ -91,4 +93,18 @@ class CitizenController extends Controller
 
         return back()->with('success', 'Ciudadano eliminado correctamente.');
     }
+
+    public function sendReport()
+{
+    $grouped = \App\Models\City::with('citizens')->get()->mapWithKeys(function($city) {
+        return [$city->name => $city->citizens];
+    });
+
+    // Cambia el correo destinatario por el que desees
+    Mail::to(auth()->user()->email)->send(new CitizensReportMail($grouped));
+
+    return redirect()->route('citizens.index')->with('success', 'Reporte enviado por correo.');
+}
+
+
 }

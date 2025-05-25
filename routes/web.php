@@ -9,6 +9,7 @@ use App\Http\Controllers\CityController;
 use App\Models\Citizen;
 
 
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -28,7 +29,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('cities', CityController::class);
-    Route::resource('citizens', CitizenController::class);
+    Route::resource('citizens', CitizenController::class)->except(['show']);
+    Route::get('/citizens/send-report', [CitizenController::class, 'sendReport'])->name('citizens.sendReport');
     // Otras rutas protegidas por autenticación
 });
 
