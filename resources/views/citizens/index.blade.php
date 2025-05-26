@@ -15,13 +15,28 @@
     </x-slot>
 
     <div class="container mx-auto p-6">
-        <!-- Botón de enviar reporte -->
-        <a
-            href="{{ route('citizens.sendReport') }}"
-            class="mb-4 inline-block px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600"
-        >
-            Enviar reporte por correo
-        </a>
+<!-- Botones de acciones -->
+<div class="flex flex-wrap gap-3 mb-4">
+    <!-- Enviar reporte -->
+    <button
+        id="btnSendReport"
+        data-email="{{ auth()->user()->email }}"
+        data-url="{{ route('citizens.sendReport') }}"
+        class="px-4 py-2 bg-indigo-500 text-white rounded-lg shadow hover:bg-indigo-600 transition"
+    >
+        Enviar reporte por correo
+    </button>
+
+    <!-- Ir a vista agrupada -->
+    <a
+        href="{{ route('citizens.grouped') }}"
+        class="px-4 py-2 bg-indigo-500 text-white rounded-lg shadow hover:bg-indigo-600 transition"
+    >
+        Ver ciudadanos agrupados
+    </a>
+</div>
+
+
 
         <!-- Buscador -->
         <form method="GET" action="{{ route('citizens.index') }}" class="mb-4">

@@ -30,7 +30,53 @@
             <!-- Page Content -->
             <main>
                 {{ $slot }}
+                <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        @if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Éxito',
+                text: '{{ session('success') }}',
+                confirmButtonColor: '#00A5B5'
+            });
+        @elseif(session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: '{{ session('error') }}',
+                confirmButtonColor: '#e3342f'
+            });
+        @endif
+    });
+</script>
+
+<script>
+document.getElementById('btnSendReport').addEventListener('click', function () {
+    const email = this.dataset.email;
+    const url = this.dataset.url;
+
+    Swal.fire({
+        title: '¿Deseas enviar el reporte?',
+        text: `Se enviará al correo: ${email}`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, enviar',
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#00A5B5',
+        cancelButtonColor: '#d33'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = url;
+        }
+    });
+});
+</script>
+
+
             </main>
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
     </body>
 </html>
