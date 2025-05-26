@@ -106,5 +106,16 @@ class CitizenController extends Controller
     return redirect()->route('citizens.index')->with('success', 'Reporte enviado por correo.');
 }
 
+public function grouped()
+{
+    $cities = \App\Models\City::with(['citizens' => function ($query) {
+        $query->orderBy('name');
+    }])->orderBy('name')->get();
+
+    return view('citizens.grouped', compact('cities'));
+}
+
+
+
 
 }

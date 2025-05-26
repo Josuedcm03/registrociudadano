@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('cities', CityController::class);
     Route::resource('citizens', CitizenController::class)->except(['show']);
     Route::get('/citizens/send-report', [CitizenController::class, 'sendReport'])->name('citizens.sendReport');
+    Route::get('/ciudadanos/agrupados', [CitizenController::class, 'grouped'])->name('citizens.grouped');
     // Otras rutas protegidas por autenticación
 });
 
